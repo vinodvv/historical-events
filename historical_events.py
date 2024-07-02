@@ -29,18 +29,8 @@ def get_historical_events():
         Link: https://en.wikipedia.org/wiki/Thomas_Jefferson
     """
     try:
-        month = input("Enter the moth (e.g., 7 for July): ")
-
-        # validate month
-        if not (1 <= int(month) <= 12):
-            print("Please enter a correct month value (1 - 12).")
-            month = input("Enter the moth (e.g., 7 for July): ")
-
-        # validate day
-        day = input("Enter the day (e.g., 1 for 1st): ")
-        if not (1 <= int(day) <= 31):
-            print("Please enter a correct day value (01-31).")
-            day = input("Enter the day (e.g., 1 for 1st): ")
+        month = validate_input("Enter the moth (e.g., 7 for July): ", 1, 12)
+        day = validate_input("Enter the day (e.g., 1 for 1st): ", 1, 31)
 
         url = f"http://history.muffinlabs.com/date/{month}/{day}"
         response = requests.get(url)
@@ -62,6 +52,29 @@ def get_historical_events():
 
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
+def validate_input(prompt, min_value, max_value):
+    """
+    Prompts the user for input and validates it within the specified range.
+
+      Args:
+          prompt: String representing the prompt message.
+          min_value: Integer representing the minimum allowed value.
+          max_value: Integer representing the maximum allowed value.
+
+      Returns:
+          Integer representing the validated user input.
+    """
+    while True:
+        try:
+            value = int(input(prompt))
+            if min_value <= value <= max_value:
+                return value
+            else:
+                print(f"Invalid input. Please enter a number between {min_value} and {max_value}")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
 
 if __name__ == "__main__":

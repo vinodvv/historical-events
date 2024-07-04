@@ -25,14 +25,15 @@ def get_historical_events():
         Link: https://en.wikipedia.org/wiki/United_States_Declaration_of_Independence
 
         Year: 1826
-        Description: Thomas Jefferson and John Adams, respectively the second and third presidents of the United States, die on the 50th anniversary of the Declaration of Independence.
+        Description: Thomas Jefferson and John Adams, respectively the second and third presidents of the United States,
+         die on the 50th anniversary of the Declaration of Independence.
         Link: https://en.wikipedia.org/wiki/Thomas_Jefferson
     """
     try:
         month = validate_input("Enter the moth (e.g., 7 for July): ", 1, 12)
         day = validate_input("Enter the day (e.g., 1 for 1st): ", 1, 31)
 
-        url = f"http://history.muffinlabs.com/date/{month}/{day}"
+        url = f"https://history.muffinlabs.com/date/{month}/{day}"
         response = requests.get(url)
         data = response.json()
         events = data.get('data', {}).get('Events', [])
